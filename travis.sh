@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -euo pipefail
+#set -euo pipefail
 
 
 export JAVA_HOME=/usr/lib/jvm/java-8-oracle
