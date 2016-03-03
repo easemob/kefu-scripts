@@ -37,5 +37,12 @@ else
   	    -Dsonar.login=$SONAR_LOGIN \
   	    -Dsonar.password=$SONAR_PASSWD \
 		-Dsettings.security=settings-security.xml | grep -vE '\[main\]|MB/s|^Collecting|Receiving objects|Resolving deltas:|remote: Compressing objects:|Downloading|Extracting|Pushing|[0-9]+ KB'
+	
+	MVN_STATUS=${PIPESTATUS[0]}
+
+	if [ $MVN_STATUS != 0 ]
+	then
+	  exit $MVN_STATUS
+	fi
 fi
 
