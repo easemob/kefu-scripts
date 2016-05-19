@@ -28,7 +28,7 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
     fi
 else
 	docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" docker-registry.easemob.com
-  	mvn clean test install sonar:sonar package deploy \
+  	mvn clean test install sonar:sonar package deploy -U \
 		-Pdocker -Pci \
 		-s settings.xml \
 		-DpushImage \
