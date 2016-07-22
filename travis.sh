@@ -35,7 +35,7 @@ else
         -Dsonar.host.url=$SONAR_HOST_URL \
         -Dsonar.login=$SONAR_LOGIN \
         -Dsonar.password=$SONAR_PASSWD \
-        -Dsettings.security=settings-security.xml $@ | grep -vE '\[main\]|MB/s|^Collecting|Receiving objects|Resolving deltas:|remote: Compressing objects:|Downloading|Extracting|Pushing|[0-9]+ KB'
+        -Dsettings.security=settings-security.xml $@ | grep -vE '^\[info\]|\[main\]|MB/s|^Collecting|Receiving objects|Resolving deltas:|remote: Compressing objects:|Downloading|Extracting|Pushing|[0-9]+ KB'
 
     MVN_STATUS=${PIPESTATUS[0]}
 
