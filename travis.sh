@@ -24,6 +24,7 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
             -Dsonar.host.url=$SONAR_HOST_URL \
             -Dsonar.login=$SONAR_LOGIN \
             -Dsonar.password=$SONAR_PASSWD \
+             -Dbuildtime.output.log=true \
             -s settings.xml -Dsettings.security=settings-security.xml $@
     fi
 else
@@ -32,6 +33,7 @@ else
         -Pdocker -Pci \
         -s settings.xml \
         -DpushImage \
+         -Dbuildtime.output.log=true \
         -Dsonar.host.url=$SONAR_HOST_URL \
         -Dsonar.login=$SONAR_LOGIN \
         -Dsonar.password=$SONAR_PASSWD \
