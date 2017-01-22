@@ -30,7 +30,7 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
 else
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" docker-registry.easemob.com
     mvn clean test install sonar:sonar package deploy -U \
-        -Pdocker -Pci \
+        -Pci \
         -s settings.xml \
         -DpushImage \
          -Dbuildtime.output.log=true \
