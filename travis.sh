@@ -14,7 +14,7 @@ alias mvn='mvn -B -T 4'
 if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
     if [ -n "$SONAR_GITHUB_OAUTH" ]; then
         echo "Start pullrequest analysis"
-        mvn clean test install sonar:sonar -Pci \
+        mvn clean test package sonar:sonar -Pci \
             -Dsonar.analysis.mode=preview \
             -Dsonar.verbose=true \
             -Dsonar.github.pullRequest=$TRAVIS_PULL_REQUEST \
@@ -24,16 +24,16 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
             -Dsonar.host.url=$SONAR_HOST_URL \
             -Dsonar.login=$SONAR_LOGIN \
             -Dsonar.password=$SONAR_PASSWD \
-             -Dbuildtime.output.log=true \
+            -Dbuildtime.output.log=true \
             -s settings.xml -Dsettings.security=settings-security.xml $@
     fi
 else
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" docker-registry.easemob.com
-    mvn clean test install sonar:sonar package deploy -U \
+    mvn clean test sonar:sonar package deploy -U \
         -Pci \
         -s settings.xml \
         -DpushImage \
-         -Dbuildtime.output.log=true \
+        -Dbuildtime.output.log=true \
         -Dsonar.host.url=$SONAR_HOST_URL \
         -Dsonar.login=$SONAR_LOGIN \
         -Dsonar.password=$SONAR_PASSWD \
