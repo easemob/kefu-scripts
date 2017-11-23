@@ -25,7 +25,7 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
             -Dsonar.login=$SONAR_LOGIN \
             -Dsonar.password=$SONAR_PASSWD \
             -Dbuildtime.output.log=true \
-            -s settings.xml -Dsettings.security=settings-security.xml $@
+            -s settings.xml -Dsettings.security=settings-security.xml $@ | grep -vE '^\[info\]|\[main\]|MB/s|^Collecting|Receiving objects|Resolving deltas:|remote: Compressing objects:|Downloading|Extracting|Pushing|[0-9]+ KB'
     fi
 else
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" docker-registry.easemob.com
