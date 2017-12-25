@@ -14,11 +14,18 @@
     if [ -n "$SONAR_GITHUB_OAUTH" ]; then
         echo "Start pullrequest analysis"
         pwd
-        mvn clean test package  -Pci,easemob-kefu -Dbuildtime.output.log=true  -s ./settings.xml -Dsettings.security=./settings-security.xml $@
+        mvn clean test package  -Pci,easemob-kefu -Dbuildtime.output.log=true  -s ./settings.xml -Dsettings.security=./settings-security.xml $@ | grep -vE '^\[info\]|\[main\]|MB/s|^Collecting|Receiving objects|Resolving deltas:|remote: Compressing objects:|Downloading|Extracting|Pushing|[0-9]+ KB|^Progress'
+        
+        MVN_STATUS=${PIPESTATUS[0]}
+
+        if [ $MVN_STATUS != 0 ]
+        then
+            exit $MVN_STATUS
+        fi
     fi
   else
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" docker-registry.easemob.com
-    mvn clean test package deploy -U  -Pci,easemob-kefu  -s ./settings.xml  -DpushImage  -Dbuildtime.output.log=true -Dsettings.security=./settings-security.xml $@ | grep -vE '^\[info\]|\[main\]|MB/s|^Collecting|Receiving objects|Resolving deltas:|remote: Compressing objects:|Downloading|Extracting|Pushing|[0-9]+ KB'
+    mvn clean test package deploy -U  -Pci,easemob-kefu  -s ./settings.xml  -DpushImage  -Dbuildtime.output.log=true -Dsettings.security=./settings-security.xml $@ | grep -vE '^\[info\]|\[main\]|MB/s|^Collecting|Receiving objects|Resolving deltas:|remote: Compressing objects:|Downloading|Extracting|Pushing|[0-9]+ KB|^Progress'
 
       MVN_STATUS=${PIPESTATUS[0]}
 
