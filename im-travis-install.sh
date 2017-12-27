@@ -35,8 +35,9 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ] && [ -n "${GITHUB_TOKEN:-}" ]; then
         exit $MVN_STATUS
     fi
 else
+    docker login  -u="$DOCKER_USER" -p="$DOCKER_PASSWD" $DOCKER_REGISTRY
     echo "running maven build with direct push"
-    mvn clean test package sonar:sonar deploy -U \
+    mvn clean test package sonar:sonar deploy -Pdocker -DpushImage -U \
 		$MAVEN_OPTIONS \
 		$SONAR_EXCLUSION_OPTION \
 		$SONAR_HOST_OPTIONS \
