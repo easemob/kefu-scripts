@@ -34,10 +34,28 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ] && [ -n "${GITHUB_TOKEN:-}" ]; then
     then
         exit $MVN_STATUS
     fi
-else
+elif [ "TRAVIS_TAG" != "false" ]; then
+	echo "######## Building Release ${TRAVIS_TAG}"
+	
     docker login  -u="$DOCKER_USER" -p="$DOCKER_PASSWD" $DOCKER_REGISTRY
     echo "running maven build with direct push"
     mvn clean test package sonar:sonar deploy -Pdocker -DpushImage -U \
+		$MAVEN_OPTIONS \
+		$SONAR_EXCLUSION_OPTION \
+		$SONAR_HOST_OPTIONS \
+		$SONAR_EXTRA_OPTIONS \
+		-s ./travis/.travis_settings.xml  $@ | grep -vE '^\[info\]|\[main\]|MB/s|^Collecting|Receiving objects|Resolving deltas:|remote: Compressing objects:|Downloading|Extracting|Pushing|[0-9]+ KB'
+
+    MVN_STATUS=${PIPESTATUS[0]}
+
+    if [ $MVN_STATUS != 0 ]
+    then
+        exit $MVN_STATUS
+    fi
+	
+else
+    echo "running maven build with direct push"
+    mvn clean test package sonar:sonar deploy  -U \
 		$MAVEN_OPTIONS \
 		$SONAR_EXCLUSION_OPTION \
 		$SONAR_HOST_OPTIONS \
