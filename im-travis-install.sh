@@ -34,7 +34,7 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ] && [ -n "${GITHUB_TOKEN:-}" ]; then
     then
         exit $MVN_STATUS
     fi
-elif [ "TRAVIS_TAG" != "false" ]; then
+elif [ "TRAVIS_TAG" != "false" ] && [ "TRAVIS_TAG" != "" ]; then
 	echo "######## Building Release ${TRAVIS_TAG}"
 	
     docker login  -u="$DOCKER_USER" -p="$DOCKER_PASSWD" $DOCKER_REGISTRY
