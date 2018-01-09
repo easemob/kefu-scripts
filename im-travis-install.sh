@@ -34,8 +34,8 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ] && [ -n "${GITHUB_TOKEN:-}" ]; then
     then
         exit $MVN_STATUS
     fi
-elif [ "$TRAVIS_TAG" != "false" ] && [ "$TRAVIS_TAG" != "" ] && [ -n "$TRAVIS_TAG" ]; then
-	echo "######## Building Release ${TRAVIS_TAG}"
+efif [ "$TRAVIS_TAG" != "false" ] && [[ "$TRAVIS_TAG" =~ '^[0-9a-zA-Z\-_=+\.].*$' ]] ; then
+	echo "######## Building Release '${TRAVIS_TAG}'"
 	
     docker login  -u="$DOCKER_USER" -p="$DOCKER_PASSWD" $DOCKER_REGISTRY
     echo "running maven build with direct push"
