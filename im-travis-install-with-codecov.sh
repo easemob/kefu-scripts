@@ -8,7 +8,7 @@ javac -J-Xmx32m -version
 alias mvn='mvn -B -T 4'
 
 
-MAVEN_OPTIONS="cobertura:cobertura -Pci -DskipTests=true -Dmaven.test.redirectTestOutputToFile=false -Dsurefire.useFile=false -e -V"
+MAVEN_OPTIONS="cobertura:cobertura -Pci -Dmaven.test.redirectTestOutputToFile=false -Dsurefire.useFile=false -e -V"
 SONAR_EXCLUSION_OPTION="-Dsonar.exclusions=src/main/java/com/easemob/thrift/**/*"
 SONAR_HOST_OPTIONS="-Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_LOGIN -Dsonar.password=$SONAR_PASSWD"
 
