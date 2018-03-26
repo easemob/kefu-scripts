@@ -9,7 +9,6 @@ alias mvn='mvn -B -T 4'
 
 
 MAVEN_OPTIONS="cobertura:cobertura -Pci"
-SONAR_EXCLUSION_OPTION="-Dsonar.exclusions=src/main/java/com/easemob/thrift/**/*"
 SONAR_HOST_OPTIONS="-Dsonar.host.url=http://sonar.easemob.com:9000 -Dsonar.login=$SONAR_LOGIN -Dsonar.password=$SONAR_PASSWD"
 
 SONAR_GITHUB_OPTIONS="-Dsonar.github.pullRequest=$TRAVIS_PULL_REQUEST -Dsonar.github.repository=$TRAVIS_REPO_SLUG -Dsonar.github.login=$SONAR_GITHUB_LOGIN -Dsonar.github.oauth=$SONAR_GITHUB_OAUTH"
