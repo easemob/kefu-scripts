@@ -16,7 +16,6 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
     if [ -n "$SONAR_GITHUB_OAUTH" ]; then
         echo "Start pullrequest analysis"
         mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent test package sonar:sonar -Pci \
-            -Dmaven.test.failure.ignore=true \
             -Dsonar.analysis.mode=preview \
             -Dsonar.verbose=true \
             -Dsonar.github.pullRequest=$TRAVIS_PULL_REQUEST \
@@ -39,7 +38,7 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
     fi
 else
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" docker-registry.easemob.com
-    mvn clean test package sonar:sonar deploy -U -Pci \
+    mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent test package sonar:sonar deploy -U -Pci \
         -DpushImage \
         -Dsonar.host.url=$SONAR_HOST_URL \
         -Dsonar.login=$SONAR_LOGIN \
