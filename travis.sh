@@ -16,7 +16,6 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
     if [ -n "$SONAR_GITHUB_OAUTH" ]; then
         echo "Start pullrequest analysis"
         mvn clean install sonar:sonar -Pci \
-            # -Dsonar.analysis.mode=preview \
             -Dsonar.verbose=true \
             -Dsonar.github.pullRequest=$TRAVIS_PULL_REQUEST \
             -Dsonar.github.repository=$TRAVIS_REPO_SLUG \
