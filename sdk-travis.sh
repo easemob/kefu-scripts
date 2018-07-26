@@ -2,7 +2,6 @@
 
 #set -euo pipefail
 
-TRAVIS_PULL_REQUEST=false
 SONAR_URL=http://sonar.easemob.com:9000
 SONAR_USER=zhaoliang
 SONAR_PASSWORD=sonarsdk
