@@ -14,7 +14,7 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
     echo "start pr analysis"
     if [ -n "$SONAR_GITHUB_OAUTH" ]; then
         echo "Start pullrequest analysis"
-        ./gradlew $1 $2 -Dsonar.host.url=$SONAR_URL\
+        ./gradlew -PisTravis=true $1 $2 -Dsonar.host.url=$SONAR_URL\
             -Dsonar.login=$SONAR_USER\
 	    -Dsonar.password=$SONAR_PASSWORD\
             -Dsonar.github.pullRequest=$TRAVIS_PULL_REQUES \
@@ -35,7 +35,7 @@ else
      echo "Start full analysis"
      echo $TASK1
      echo $TASK2
-     ./gradlew $1 $2 -Dsonar.host.url=$SONAR_URL\
+     ./gradlew -PisTravis=true $1 $2 -Dsonar.host.url=$SONAR_URL\
           -Dsonar.login=$SONAR_USER\
 	  -Dsonar.password=$SONAR_PASSWORD\
           -Dsonar.verbose=true\ 
