@@ -2,9 +2,6 @@
 
 #set -euo pipefail
 
-SONAR_URL=http://sonar.easemob.com:9000
-SONAR_USER=zhaoliang
-SONAR_PASSWORD=sonarsdk
 echo $1
 echo $2
 
