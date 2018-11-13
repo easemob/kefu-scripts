@@ -8,7 +8,7 @@ javac -J-Xmx32m -version
 alias mvn='mvn -B -T 4'
 
 
-MAVEN_OPTIONS="cobertura:cobertura -Pci"
+MAVEN_OPTIONS="-Pci"
 SONAR_HOST_OPTIONS="-Dsonar.host.url=http://sonar.easemob.com:9000 -Dsonar.login=$SONAR_LOGIN -Dsonar.password=$SONAR_PASSWD"
 
 SONAR_GITHUB_OPTIONS="-Dsonar.github.pullRequest=$TRAVIS_PULL_REQUEST -Dsonar.github.repository=$TRAVIS_REPO_SLUG -Dsonar.github.login=$SONAR_GITHUB_LOGIN -Dsonar.github.oauth=$SONAR_GITHUB_OAUTH"
@@ -19,7 +19,7 @@ echo  "***** travis tag var is [$TRAVIS_TAG]*****"
 if [ "$TRAVIS_PULL_REQUEST" != "false" ] && [ -n "${GITHUB_TOKEN:-}" ]; then
     echo 'Internal pull request: trigger QA and analysis'
 
-    mvn clean package sonar:sonar  \
+    mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install org.jacoco:jacoco-maven-plugin:report sonar:sonar  \
         $MAVEN_OPTIONS \
         $SONAR_EXCLUSION_OPTION \
 		$SONAR_HOST_OPTIONS \
@@ -40,7 +40,7 @@ elif [ "$TRAVIS_TAG" != "false" ] && [[ "$TRAVIS_TAG" =~ ^[0-9a-zA-Z\._=+\-].*$ 
 	
     docker login  -u="$DOCKER_USER" -p="$DOCKER_PASSWD" $DOCKER_REGISTRY
     echo "running maven build with direct push"
-    mvn clean test package sonar:sonar deploy -Pdocker -DpushImage -U \
+    mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install org.jacoco:jacoco-maven-plugin:report sonar:sonar deploy -Pdocker -DpushImage -U \
 		$MAVEN_OPTIONS \
 		$SONAR_EXCLUSION_OPTION \
 		$SONAR_HOST_OPTIONS \
@@ -56,7 +56,7 @@ elif [ "$TRAVIS_TAG" != "false" ] && [[ "$TRAVIS_TAG" =~ ^[0-9a-zA-Z\._=+\-].*$ 
 	
 else
     echo "running maven build with direct push"
-    mvn clean test package sonar:sonar deploy  -U \
+    mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install org.jacoco:jacoco-maven-plugin:report sonar:sonar deploy  -U \
 		$MAVEN_OPTIONS \
 		$SONAR_EXCLUSION_OPTION \
 		$SONAR_HOST_OPTIONS \
