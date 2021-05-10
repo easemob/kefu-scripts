@@ -24,7 +24,7 @@
         fi
     fi
   else
-    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" docker-registry.easemob.com
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" docker-registry.easemob.com
     mvn clean test package deploy -U  -Pci,easemob-kefu  -s ./settings.xml  -DpushImage  -Dbuildtime.output.log=true -Dsettings.security=./settings-security.xml $@ | grep -vE '^\[info\]|\[main\]|MB/s|^Collecting|Receiving objects|Resolving deltas:|remote: Compressing objects:|Downloading|Extracting|Pushing|[0-9]+ KB|^Progress'
 
       MVN_STATUS=${PIPESTATUS[0]}
