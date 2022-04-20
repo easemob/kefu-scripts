@@ -10,6 +10,13 @@ export SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL="false"
 export SPRING_JPA_PROPERTIES_HIBERNATE_SHOW_SQL="false"
 export LOGGING_LEVEL_ROOT="WARN"
 
+# Sonar
+ export SONAR_HOST_URL=http://sonar.easemob.com:9000
+ export SONAR_LOGIN=ci-user
+ export SONAR_PASSWD=Cbc-LyU-6C9-Nof
+ export SONAR_GITHUB_LOGIN=alexgreenbar
+ export SONAR_GITHUB_OAUTH=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
+
 alias mvn='mvn -B -T 4'
 if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
     if [ -n "$SONAR_GITHUB_OAUTH" ]; then
@@ -19,6 +26,7 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
             -Dsonar.verbose=true \
             -Dsonar.github.pullRequest=$TRAVIS_PULL_REQUEST \
             -Dsonar.github.repository=$TRAVIS_REPO_SLUG \
+            -Dsonar.github.login=$SONAR_GITHUB_LOGIN \
             -Dsonar.github.oauth=$SONAR_GITHUB_OAUTH \
             -Dsonar.host.url=$SONAR_HOST_URL \
             -Dsonar.login=$SONAR_LOGIN \
