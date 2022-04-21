@@ -10,11 +10,6 @@ export SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL="false"
 export SPRING_JPA_PROPERTIES_HIBERNATE_SHOW_SQL="false"
 export LOGGING_LEVEL_ROOT="WARN"
 
-# Sonar
- export SONAR_HOST_URL=http://sonar.easemob.com:9000
- export SONAR_LOGIN=ci-user
- export SONAR_PASSWD=Cbc-LyU-6C9-Nof
-
 alias mvn='mvn -B -T 4'
 if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
     if [ -n "$SONAR_GITHUB_OAUTH" ]; then
